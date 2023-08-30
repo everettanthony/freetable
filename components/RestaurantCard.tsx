@@ -22,7 +22,7 @@ export default function RestaurantCard() {
           </div>
           <div className="flex font-normal capitalize">
             <div className="mr-3">Mexican</div>
-            <div className="mr-3">$$$$</div>
+            <div className="mr-3">$$$</div>
             <div>Dallas</div>
           </div>
           <div className="mt-2 flex items-center font-medium">

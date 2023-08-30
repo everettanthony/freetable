@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Star from '@/components/Star';
+import Reviews from './Reviews';
 
 export default function SearchResultCard() {
     return (
@@ -12,16 +13,12 @@ export default function SearchResultCard() {
             <div className="pl-5">
                 <h2 className="text-3xl mb-1">
                     <Link href="/restaurant/herreras">
-                        Aiāna Restaurant Collective
+                        Hererra's
                     </Link>
                 </h2>
                 <div className="flex items-start">
-                    <div className="flex mb-2">
-                        <Star />
-                        <Star />
-                        <Star />
-                        <Star />
-                        <Star />
+                    <div className="flex mb-2 -ml-0.5">
+                        <Reviews size={100} />
                     </div>
                     <p className="ml-2 text-sm">Awesome</p>
                 </div>
@@ -29,7 +26,7 @@ export default function SearchResultCard() {
                     <div className="font-light flex text-reg">
                         <p className="mr-4">$$$</p>
                         <p className="mr-4">Mexican</p>
-                        <p className="mr-4">Ottawa</p>
+                        <p className="mr-4">Dallas</p>
                     </div>
                 </div>
                 <div className="text-red-600">

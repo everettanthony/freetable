@@ -9,7 +9,7 @@ const ratingStyles = {
 };
 
 export default function Reviews(props: { size: number }) {
-    const [rating, setRating] = useState(0);
+    const [rating, setRating] = useState(5);
 
     return (
         <div>
@@ -18,6 +18,7 @@ export default function Reviews(props: { size: number }) {
                 value={rating} 
                 onChange={setRating} 
                 itemStyles={ratingStyles} 
+                readOnly
             />
         </div>
     )

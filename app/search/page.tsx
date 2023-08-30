@@ -1,6 +1,12 @@
+import type { Metadata } from 'next';
 import SearchSideBar from '@/components/SearchSidebar';
 import SearchResultCard from '@/components/SearchResultCard';
 import SearchHeader from '@/components/SearchHeader';
+
+export const metadata: Metadata = {
+    title: 'Search Restaurants | FreeTable',
+    description: 'Search for a restaurant near you.',
+}
 
 export default function SearchPage() {
     return (
