@@ -1,25 +1,17 @@
-'use client';
-import { useState } from 'react';
-import { Rating, Star } from '@smastrom/react-rating';
+import { Review } from '@prisma/client';
+import ReviewCard from '@/components/ReviewCard';
 
-const ratingStyles = {
-    itemShapes: Star,
-    activeFillColor: '#da3743',
-    inactiveFillColor: '#fbbcc1'
-};
-
-export default function Reviews(props: { size: number }) {
-    const [rating, setRating] = useState(5);
-
+export default function Reviews({ reviews }: { reviews: Review[] }) {
     return (
         <div>
-            <Rating 
-                style={{ maxWidth: props.size }}
-                value={rating} 
-                onChange={setRating} 
-                itemStyles={ratingStyles} 
-                readOnly
-            />
+            <h1 className="font-bold text-3xl mt-10 mb-7 borber-b pb-5">
+                What {reviews.length} {reviews.length === 1 ? 'person is' : 'people are'} saying
+            </h1>
+            <div>
+                {reviews.map((review) => (
+                    <ReviewCard review={review} key={review.id} />
+                ))}
+            </div>
         </div>
     )
 }

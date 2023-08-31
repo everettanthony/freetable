@@ -1,14 +1,24 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { RestaurantCardType } from '@/app/page';
-import Reviews from './Reviews';
+import ReviewRating from '@/components/ReviewRating';
 import Price from './Price';
+import calculateReviewRatingAverage from '@/utils/calculateReviewRatingAverage';
 
 interface Props {
     restaurant: RestaurantCardType
 }
 
-export default function SearchResultCard({restaurant}: Props) {
+export default function SearchResultCard({ restaurant }: Props) {
+    const rating = calculateReviewRatingAverage(restaurant.reviews);
+
+    function renderGreetingText() {
+        if (rating > 4) return 'Awesome';
+        else if (rating <= 4 && rating > 3) return 'Good';
+        else if (rating <= 3 && rating > 0) return 'Average';
+        else '';
+    }
+
     return (
         <div className="border-b flex pb-5 mb-5">        
             <Image
@@ -26,15 +36,15 @@ export default function SearchResultCard({restaurant}: Props) {
                 </h2>
                 <div className="flex items-start">
                     <div className="flex mb-2 -ml-0.5">
-                        <Reviews size={100} />
+                        <ReviewRating size={100} rating={rating} />
                     </div>
-                    <p className="ml-2 text-sm">Awesome</p>
+                    <div className="ml-2 text-sm">{renderGreetingText()}</div>
                 </div>
                 <div className="mb-9">
                     <div className="font-light flex text-reg">
-                        <p className="mr-1"><Price price={restaurant.price} /></p>
-                        <p className="mr-4 capitalize">{restaurant.cuisine.name}</p>
-                        <p className="mr-4 capitalize">{restaurant.location.name}</p>
+                        <div className="mr-1"><Price price={restaurant.price} /></div>
+                        <div className="mr-4 capitalize">{restaurant.cuisine.name}</div>
+                        <div className="mr-4 capitalize">{restaurant.location.name}</div>
                     </div>
                 </div>
                 <div className="text-red-600">

@@ -1,6 +1,6 @@
 import { PRICE } from '@prisma/client';
 
-export default function Price({price}: {price: PRICE}) {
+export default function Price({ price }: { price: PRICE }) {
     function renderPrice() {
         if (price === PRICE.CHEAP) {
             return (
