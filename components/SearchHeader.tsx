@@ -1,7 +1,6 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 
 export default function SearchHeader() {
     const router = useRouter();
@@ -20,8 +19,9 @@ export default function SearchHeader() {
                 <button className="rounded bg-[#da3743] hover:bg-[#e1414e] 
                     transition-colors duration-300 px-9 py-2 text-white"
                     onClick={() => {
-                        if (location === 'banana') return;
-                        router.push('/search');
+                        if (location === '') return;
+                        router.push(`/search?city=${location}`);
+                        setLocation('');
                     }}>
                     Let's Go
                 </button>

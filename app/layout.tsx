@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Header from '@/components/Header';
+import "@fontsource/source-sans-pro"; 
 import '@smastrom/react-rating/style.css'
 import '@/styles/_styles.scss';
 
@@ -15,11 +16,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-      </head>
       <body>
         <Header />
         <main>

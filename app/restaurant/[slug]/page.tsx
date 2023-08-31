@@ -1,16 +1,42 @@
-import Link from 'next/link';
-import Star from "@/components/Star";
+import { PrismaClient } from '@prisma/client';
+import Image from 'next/image';
 import Reviews from '@/components/Reviews';
 import RestaurantNavBar from '@/components/RestaurantNavBar';
 import Reservation from '@/components/Reservation';
 
-export default function RestaurantDetailsPage() {
+export interface RestaurantType {
+    id: number;
+    name: string;
+    images: string[];
+    description: string; 
+    slug: string;
+}
+
+const prisma = new PrismaClient();
+
+async function fetchRestaurantBySlug(slug: string): Promise<RestaurantType> {
+    const restaurant = await prisma.restaurant.findUnique({
+        where: {
+            slug
+        }
+    });
+
+    if (!restaurant) {
+        throw new Error('No restaurant found.');
+    }
+
+    return restaurant;
+}
+  
+export default async function RestaurantDetailsPage({params}: {params: { slug: string }}) {
+    const restaurant = await fetchRestaurantBySlug(params.slug);
+
     return (
         <div className="flex m-auto w-2/3 justify-between items-start 0 -mt-11">
             <div className="bg-white w-[70%] rounded py-5 px-6 shadow">
-                <RestaurantNavBar />
+                <RestaurantNavBar slug={restaurant.slug} />
                 <div className="mt-4 border-b pb-6">
-                    <h1 className="font-bold text-6xl">Herrera's</h1>
+                    <h1 className="font-bold text-6xl capitalize">{restaurant?.name}</h1>
                 </div>
                 <div className="flex items-end">
                     <div className="ratings mt-2 flex items-center">
@@ -26,44 +52,25 @@ export default function RestaurantDetailsPage() {
                 {/* DESCRIPTION */}
                 <div className="mt-4">
                     <p className="text-lg font-light">
-                        The classics you love prepared with a perfect twist, all served up
-                        in an atmosphere that feels just right. That's the Herrera's
-                        promise. So, whether you're celebrating a milestone, making the most
-                        of Happy Hour or enjoying brunch with friends, you can be sure that
-                        every Herrera's experience is a simple and perfectly memorable one.
+                        {restaurant?.description}
                     </p>
                 </div>
                 {/* IMAGES */}
                 <div>
                     <h1 className="font-bold text-3xl mt-10 mb-7 border-b pb-5">
-                        5 photos
+                        {restaurant?.images ? restaurant?.images.length : 0} photo{restaurant?.images.length > 1 ? 's' : ''}
                     </h1>
                     <div className="flex flex-wrap">
-                        <img
-                            className="w-56 h-44 mr-1 mb-1"
-                            src="https://resizer.otstatic.com/v2/photos/xlarge/3/41701449.jpg"
-                            alt=""
-                        />
-                        <img
-                            className="w-56 h-44 mr-1 mb-1"
-                            src="https://resizer.otstatic.com/v2/photos/xlarge/2/41701450.jpg"
-                            alt=""
-                        />
-                        <img
-                            className="w-56 h-44 mr-1 mb-1"
-                            src="https://resizer.otstatic.com/v2/photos/xlarge/2/41701452.jpg"
-                            alt=""
-                        />
-                        <img
-                            className="w-56 h-44 mr-1 mb-1"
-                            src="https://resizer.otstatic.com/v2/photos/xlarge/2/41701453.jpg"
-                            alt=""
-                        />
-                        <img
-                            className="w-56 h-44 mr-1 mb-1"
-                            src="https://resizer.otstatic.com/v2/photos/xlarge/2/41701454.jpg"
-                            alt=""
-                        />
+                        {restaurant?.images.map((image) => (
+                            <Image 
+                                src={image}
+                                width={256}
+                                height={256}
+                                key={restaurant.name}
+                                alt={restaurant.name}
+                                className="w-56 h-44 mr-1 mb-1"
+                            />
+                        ))}
                     </div>
                 </div>
                 {/* REVIEWS */}
