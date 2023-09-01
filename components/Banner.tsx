@@ -1,13 +1,17 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Spinner from './Spinner';
 
 export default function Banner() {
     const router = useRouter();
+    const [isLoading, setIsLoading] = useState(false);
     const [location, setLocation] = useState('');
 
     function submitHandler() {
         if (location === '') return;
+
+        setIsLoading(true);
         router.push(`/search?city=${location}`);
         setLocation('');
     }
@@ -30,10 +34,10 @@ export default function Banner() {
                             if (e.key === 'Enter') submitHandler();
                         }} 
                     />
-                    <button className="rounded bg-[#da3743] hover:bg-[#e1414e] 
-                        transition-colors duration-300 px-9 py-2 text-white"
+                    <button className="flex items-center justify-center rounded bg-[#da3743] hover:bg-[#e1414e] 
+                        transition-colors duration-300 px-9 py-2 text-white w-[132px]"
                         onClick={submitHandler}>
-                        Let's Go
+                        {!isLoading && (<span>Let's Go</span>)}<Spinner visible={isLoading} />
                     </button>
                 </div>
             </div>
