@@ -1,12 +1,16 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Spinner from './Spinner';
 
-export default function SearchHeader() {
+export default function SearchHeader({ restaurants }: { restaurants: any }) {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
     const [location, setLocation] = useState('');
+
+    useEffect(() => {
+        if (restaurants) setIsLoading(false); 
+    }, [restaurants]);
 
     function submitHandler() {
         if (location === '') return;

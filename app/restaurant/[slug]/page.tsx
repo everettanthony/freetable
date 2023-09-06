@@ -1,4 +1,5 @@
 import { PrismaClient, Review } from '@prisma/client';
+import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Reviews from '@/components/Reviews';
 import RestaurantNavBar from '@/components/RestaurantNavBar';
@@ -33,7 +34,7 @@ async function fetchRestaurantBySlug(slug: string): Promise<RestaurantType> {
     });
 
     if (!restaurant) {
-        throw new Error('No restaurant found.');
+        notFound();
     }
 
     return restaurant;

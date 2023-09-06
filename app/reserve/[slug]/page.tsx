@@ -1,6 +1,6 @@
 export default function ReservationPage() {
     return (
-        <div className="bg-gray-100 min-h-screen w-screen">
+        <div className="bg-gray-100 min-h-screen w-full">
             <div className="m-auto bg-white">
                 <div className="border-t h-screen">
                     <div className="py-9 w-3/5 m-auto">

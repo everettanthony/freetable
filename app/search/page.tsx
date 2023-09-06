@@ -68,9 +68,11 @@ export default async function SearchPage({ searchParams }: { searchParams: Searc
     const locations = await fetchLocations();
     const cuisines = await fetchCuisines();
 
+ 
+
     return (
-        <div className="bg-gray-100 min-h-screen w-screen">
-            <SearchHeader />
+        <div className="bg-gray-100 min-h-screen w-full">
+            <SearchHeader restaurants={restaurants} />
             <section className="m-auto bg-white">
                 <div className="flex py-6 m-auto w-2/3 justify-between items-start">
                     <SearchSideBar cuisines={cuisines} locations={locations} searchParams={searchParams} />

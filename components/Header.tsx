@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import LoginModal from './LoginModal';
 
 export default function Header() {
     return (
@@ -14,11 +15,7 @@ export default function Header() {
                     />
                 </Link>
                 <div className="flex items-center">
-                    <button className="bg-[#3e496a] text-white border border-[#3e496a] p-1 px-4 rounded mr-3 
-                    hover:bg-[#4e5b83] hover:border-[#4e5b83] transition-colors duration-300">
-                        Sign In
-                    </button>
-                    <button className="border border-gray-300 p-1 px-4 rounded">Sign Up</button>
+                    <LoginModal isSignedIn={false} />
                 </div>
             </nav>
         </header>
