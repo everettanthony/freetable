@@ -1,5 +1,7 @@
 'use client';
 import { useEffect, useState, useContext } from 'react';
+import useAuth from '@/hooks/useAuth';
+import { AuthenticationContext } from '@/context/AuthContext';
 import { Alert, Box, Button, CircularProgress, Modal } from '@mui/material';
 import LoginModalInputs from './LoginModalInputs';
 
@@ -30,6 +32,8 @@ export default function LoginModal({ isSignedIn }: { isSignedIn: boolean }) {
     const [disabled, setDisabled] = useState(true);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const { signin, signup } = useAuth();
+    const { loading, data, error } = useContext(AuthenticationContext);
 
     useEffect(() => {
         if (isSignedIn) {
@@ -65,11 +69,9 @@ export default function LoginModal({ isSignedIn }: { isSignedIn: boolean }) {
 
     function handleClick() {
         if (isSignedIn) {
-            console.log('signIn', { email: inputs.email, password: inputs.password });
-            handleClose();
+            signin({ email: inputs.email, password: inputs.password }, handleClose);
         } else {
-            console.log('signup', inputs);
-            handleClose();
+            signup(inputs, handleClose);
         }
     }
 
@@ -89,31 +91,45 @@ export default function LoginModal({ isSignedIn }: { isSignedIn: boolean }) {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description">
                 <Box sx={style}>
-                    <div className="uppercase font-bold text-center pb-2 border-b mb-2">
-                        <div className="text-lg">
-                            {renderContent('Sign In', 'Create Account')}
+                    {loading ? (
+                        <div className="p-2 flex justify-center">
+                            <CircularProgress />
                         </div>
-                    </div>
-                    <div className="m-auto">
-                        <h2 className="text-xl font-light text-center">
-                            {renderContent(
-                                'Log Into Your Account', 
-                                'Create Your OpenTable Account'
-                            )}
-                        </h2>
-                        <LoginModalInputs 
-                            inputs={inputs}
-                            handleChangeInput={handleChangeInput}
-                            isSignin={isSignedIn}
-                        />
-                        <button className="flex items-center justify-center rounded 
-                            bg-[#da3743] hover:bg-[#e1414e] transition-colors 
-                            duration-300 px-9 py-2 text-white w-full mt-2"
-                            disabled={disabled}
-                            onClick={handleClick}>
-                            {renderContent('Sign In', 'Create Account')}
-                        </button>
-                    </div>
+                    ) : (
+                        <div className="p-2">
+                            {error ? (
+                                <Alert severity="error" className="mb-4">
+                                    {error}
+                                </Alert>
+                            ) : null}
+
+                            <div className="uppercase font-bold text-center pb-2 border-b mb-2">
+                                <div className="text-lg">
+                                    {renderContent('Sign In', 'Create Account')}
+                                </div>
+                            </div>
+                            <div className="m-auto">
+                                <h2 className="text-xl font-light text-center">
+                                    {renderContent(
+                                        'Log Into Your Account', 
+                                        'Create Your OpenTable Account'
+                                    )}
+                                </h2>
+                                <LoginModalInputs 
+                                    inputs={inputs}
+                                    handleChangeInput={handleChangeInput}
+                                    isSignin={isSignedIn}
+                                />
+                                <button className="flex items-center justify-center rounded 
+                                    bg-[#da3743] hover:bg-[#e1414e] transition-colors 
+                                    duration-300 px-9 py-2 text-white w-full mt-2"
+                                    disabled={disabled}
+                                    onClick={handleClick}>
+                                    {renderContent('Sign In', 'Create Account')}
+                                </button>
+                            </div>
+                        </div>
+                    )}
                 </Box>
             </Modal>
         </div>
