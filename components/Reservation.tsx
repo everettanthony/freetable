@@ -119,10 +119,10 @@ export default function Reservation({
                                 return time.available ? (
                                     <Link
                                         href={`/reserve/${slug}?date=${day}T${time.time}&partySize=${partySize}`}
-                                        className="bg-red-600 cursor-pointer p-2 w-24 
-                                        text-center text-white mb-3 rounded mr-3"
+                                        className="bg-[#da3743] hover:bg-[#e1414e] cursor-pointer p-2 w-24 
+                                        text-center text-white mb-3 rounded mr-3 transition-colors duration-300"
                                         key={index}>
-                                        <div className="text-sm font-bold">
+                                        <div className="text-sm font-medium">
                                             {convertToDisplayTime(time.time as Time)}
                                         </div>
                                     </Link>

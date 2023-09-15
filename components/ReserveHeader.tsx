@@ -16,8 +16,8 @@ export default function ReserveHeader({
 
     return (
         <div>
-            <h3 className="font-bold">You're almost done!</h3>
-            <div className="mt-5 flex">
+            <div className="font-bold text-xl">You're almost done!</div>
+            <div className="mt-6 flex">
                 <img
                     src={image}
                     alt={name}
