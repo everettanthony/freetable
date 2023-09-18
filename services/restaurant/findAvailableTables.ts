@@ -25,7 +25,7 @@ export default async function findAvailableTables({
 
         if (!searchTimes) {
             return res.status(400).json({
-                errorMessage: 'Invalid data provided'
+                errorMessage: 'No table found with that time'
             });
         }
 

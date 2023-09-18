@@ -24,7 +24,7 @@ export async function generateMetadata(
     return {
       title: `Reserve Table at ${renderTitle()} | FreeTable`,
     }
-  }
+}
 
 const fetchRestaurantBySlug = async (slug: string) => {
     const restaurant = await prisma.restaurant.findUnique({
